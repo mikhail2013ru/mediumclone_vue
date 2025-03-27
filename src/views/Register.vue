@@ -14,6 +14,7 @@
                                 type="text" 
                                 class="form-control form-control-lg" 
                                 placeholder="Username"
+                                v-model="username"
                             />
                         </fieldset>
 
@@ -22,6 +23,7 @@
                                 type="text" 
                                 class="form-control form-control-lg" 
                                 placeholder="Email"
+                                v-model="email"
                             />
                         </fieldset>
 
@@ -30,6 +32,7 @@
                                 type="password" 
                                 class="form-control form-control-lg" 
                                 placeholder="Password"
+                                v-model="password"
                             />
                         </fieldset>
                         <button class="btn btn-lg btn-primary pull-xs-right" :disabled="isSubmitting">Sign Up</button>
@@ -45,6 +48,13 @@
 <script>
     export default {
         name: 'McvRegister',
+        data() {
+            return {
+                email: '',
+                password: '',
+                username: ''
+            }
+        },
         computed: {
             isSubmitting() {
                 return this.$store.state.auth.isSubmitting
@@ -54,11 +64,12 @@
             onSubmit() {
                 console.log('submitted form');
                 this.$store.dispatch('register', {
-                    email: 'mikhail2013ru@gmail.com', 
-                    username: 'mikhail2013ru', 
-                    password: '12345678'
+                    email: this.email, 
+                    username: this.username, 
+                    password: this.password
                 }).then(user => {
-                    console.log('successfully register user', user);                    
+                    console.log('successfully register user', user);   
+                    this.$router.push({name: 'home'})          
                 })    
             }
             // increaseCounter() {
